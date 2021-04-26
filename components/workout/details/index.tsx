@@ -25,6 +25,7 @@ export const WorkoutDetail = ({
       <WorkoutDetailHeader
         goBack={navigation.goBack}
         title={result.data?.workout?.name || ""}
+        workoutId={workoutId}
       />
       <ExercisesList exercises={result.data?.workout?.Exercise} />
       {isModalOpen && (
