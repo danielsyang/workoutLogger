@@ -99,6 +99,7 @@ export type Exercise = {
   __typename?: 'Exercise';
   id: Scalars['String'];
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   workoutId: Scalars['String'];
@@ -120,6 +121,7 @@ export type ExerciseCountAggregate = {
   __typename?: 'ExerciseCountAggregate';
   id: Scalars['Int'];
   name: Scalars['Int'];
+  suggestion: Scalars['Int'];
   createdAt: Scalars['Int'];
   updatedAt: Scalars['Int'];
   workoutId: Scalars['Int'];
@@ -129,6 +131,7 @@ export type ExerciseCountAggregate = {
 export type ExerciseCreateInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workout: WorkoutCreateNestedOneWithoutExerciseInput;
@@ -138,6 +141,7 @@ export type ExerciseCreateInput = {
 export type ExerciseCreateManyInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workoutId: Scalars['String'];
@@ -146,6 +150,7 @@ export type ExerciseCreateManyInput = {
 export type ExerciseCreateManyWorkoutInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -181,6 +186,7 @@ export type ExerciseCreateOrConnectWithoutWorkoutInput = {
 export type ExerciseCreateWithoutSetInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workout: WorkoutCreateNestedOneWithoutExerciseInput;
@@ -189,6 +195,7 @@ export type ExerciseCreateWithoutSetInput = {
 export type ExerciseCreateWithoutWorkoutInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   Set?: Maybe<SetCreateNestedManyWithoutExerciseInput>;
@@ -198,6 +205,7 @@ export type ExerciseGroupBy = {
   __typename?: 'ExerciseGroupBy';
   id: Scalars['String'];
   name: Scalars['String'];
+  suggestion: Scalars['String'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   workoutId: Scalars['String'];
@@ -216,6 +224,7 @@ export type ExerciseMaxAggregate = {
   __typename?: 'ExerciseMaxAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  suggestion?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workoutId?: Maybe<Scalars['String']>;
@@ -225,6 +234,7 @@ export type ExerciseMinAggregate = {
   __typename?: 'ExerciseMinAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  suggestion?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workoutId?: Maybe<Scalars['String']>;
@@ -233,6 +243,7 @@ export type ExerciseMinAggregate = {
 export type ExerciseOrderByInput = {
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  suggestion?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
   workoutId?: Maybe<SortOrder>;
@@ -246,6 +257,7 @@ export type ExerciseRelationFilter = {
 export enum ExerciseScalarFieldEnum {
   Id = 'id',
   Name = 'name',
+  Suggestion = 'suggestion',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt',
   WorkoutId = 'workoutId'
@@ -257,6 +269,7 @@ export type ExerciseScalarWhereInput = {
   NOT?: Maybe<Array<ExerciseScalarWhereInput>>;
   id?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
+  suggestion?: Maybe<StringFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   workoutId?: Maybe<StringFilter>;
@@ -268,6 +281,7 @@ export type ExerciseScalarWhereWithAggregatesInput = {
   NOT?: Maybe<Array<ExerciseScalarWhereWithAggregatesInput>>;
   id?: Maybe<StringWithAggregatesFilter>;
   name?: Maybe<StringWithAggregatesFilter>;
+  suggestion?: Maybe<StringWithAggregatesFilter>;
   createdAt?: Maybe<DateTimeWithAggregatesFilter>;
   updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
   workoutId?: Maybe<StringWithAggregatesFilter>;
@@ -276,6 +290,7 @@ export type ExerciseScalarWhereWithAggregatesInput = {
 export type ExerciseUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  suggestion?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   workout?: Maybe<WorkoutUpdateOneRequiredWithoutExerciseInput>;
@@ -285,6 +300,7 @@ export type ExerciseUpdateInput = {
 export type ExerciseUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  suggestion?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -324,6 +340,7 @@ export type ExerciseUpdateWithWhereUniqueWithoutWorkoutInput = {
 export type ExerciseUpdateWithoutSetInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  suggestion?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   workout?: Maybe<WorkoutUpdateOneRequiredWithoutExerciseInput>;
@@ -332,6 +349,7 @@ export type ExerciseUpdateWithoutSetInput = {
 export type ExerciseUpdateWithoutWorkoutInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  suggestion?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   Set?: Maybe<SetUpdateManyWithoutExerciseInput>;
@@ -354,6 +372,7 @@ export type ExerciseWhereInput = {
   NOT?: Maybe<Array<ExerciseWhereInput>>;
   id?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
+  suggestion?: Maybe<StringFilter>;
   workout?: Maybe<WorkoutRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
@@ -1265,6 +1284,19 @@ export type WorkoutWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type CreateExerciseMutationVariables = Exact<{
+  data: ExerciseCreateInput;
+}>;
+
+
+export type CreateExerciseMutation = (
+  { __typename?: 'Mutation' }
+  & { createExercise: (
+    { __typename?: 'Exercise' }
+    & Pick<Exercise, 'id' | 'name'>
+  ) }
+);
+
 export type CreateWorkoutMutationVariables = Exact<{
   data: WorkoutCreateInput;
 }>;
@@ -1301,7 +1333,7 @@ export type GetWorkoutByIdQuery = (
     & Pick<Workout, 'id' | 'name' | 'createdAt'>
     & { Exercise: Array<(
       { __typename?: 'Exercise' }
-      & Pick<Exercise, 'id' | 'name'>
+      & Pick<Exercise, 'id' | 'name' | 'suggestion'>
     )> }
   )> }
 );
@@ -1471,6 +1503,17 @@ export default {
             "args": []
           },
           {
+            "name": "suggestion",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "createdAt",
             "type": {
               "kind": "NON_NULL",
@@ -1616,6 +1659,17 @@ export default {
             "args": []
           },
           {
+            "name": "suggestion",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "createdAt",
             "type": {
               "kind": "NON_NULL",
@@ -1679,6 +1733,17 @@ export default {
           },
           {
             "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "suggestion",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -1769,6 +1834,14 @@ export default {
             "args": []
           },
           {
+            "name": "suggestion",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "createdAt",
             "type": {
               "kind": "SCALAR",
@@ -1809,6 +1882,14 @@ export default {
           },
           {
             "name": "name",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "suggestion",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -4055,6 +4136,18 @@ export default {
   }
 } as unknown as IntrospectionQuery;
 
+export const CreateExerciseDocument = gql`
+    mutation createExercise($data: ExerciseCreateInput!) {
+  createExercise(data: $data) {
+    id
+    name
+  }
+}
+    `;
+
+export function useCreateExerciseMutation() {
+  return Urql.useMutation<CreateExerciseMutation, CreateExerciseMutationVariables>(CreateExerciseDocument);
+};
 export const CreateWorkoutDocument = gql`
     mutation createWorkout($data: WorkoutCreateInput!) {
   createWorkout(data: $data) {
@@ -4088,6 +4181,7 @@ export const GetWorkoutByIdDocument = gql`
     Exercise {
       id
       name
+      suggestion
     }
   }
 }

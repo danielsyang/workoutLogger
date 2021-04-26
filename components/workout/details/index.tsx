@@ -1,9 +1,10 @@
 import { StackScreenProps } from "@react-navigation/stack"
 import React, { useState } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { StyleSheet } from "react-native"
 import { FAB } from "react-native-paper"
 import { useGetWorkoutByIdQuery } from "../../../generated/graphql"
 import { RootStackParamList } from "../../../navigation/types"
+import { ExerciseModal } from "./form"
 import { WorkoutDetailHeader } from "./header"
 import { ExercisesList } from "./list"
 
@@ -11,13 +12,13 @@ export const WorkoutDetail = ({
   route,
   navigation,
 }: StackScreenProps<RootStackParamList, "WorkoutDetail">) => {
+  const { workoutId } = route.params
   const [isModalOpen, setModal] = useState(false)
   const { fab } = styles
   const [result] = useGetWorkoutByIdQuery({
-    variables: { data: { id: route.params.workoutId } },
+    variables: { data: { id: workoutId } },
+    requestPolicy: "network-only",
   })
-
-  result.data?.workout?.Exercise
 
   return (
     <>
@@ -26,6 +27,13 @@ export const WorkoutDetail = ({
         title={result.data?.workout?.name || ""}
       />
       <ExercisesList exercises={result.data?.workout?.Exercise} />
+      {isModalOpen && (
+        <ExerciseModal
+          workoutId={workoutId}
+          isVisible={isModalOpen}
+          onDismiss={() => setModal(false)}
+        />
+      )}
       <FAB
         style={fab}
         icon="plus"

@@ -19,6 +19,7 @@ export const EmptyListPlaceholder = () => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
   },

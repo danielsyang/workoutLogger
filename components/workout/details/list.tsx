@@ -1,24 +1,37 @@
 import React from "react"
-import { List, Title } from "react-native-paper"
+import { FlatList } from "react-native"
+import { List } from "react-native-paper"
 import { Exercise } from "../../../generated/graphql"
 import { EmptyListPlaceholder } from "./emptyList"
 
 interface ExercisesListProps {
-  exercises?: Pick<Exercise, "id" | "name">[]
+  exercises?: Pick<Exercise, "id" | "name" | "suggestion">[]
+}
+
+const getSuggestionText = (suggestion: string) => {
+  const sets = suggestion[0]
+  const reps = suggestion.substring(2, suggestion.length)
+  return `${sets} sets of ${reps}`
 }
 
 export const ExercisesList = ({ exercises }: ExercisesListProps) => {
   return (
-    <List.Section>
+    <>
       {exercises?.length === 0 && <EmptyListPlaceholder />}
-      {exercises?.map(({ name, id }) => (
-        <List.Item
-          title={name}
-          key={id}
-          left={() => <List.Icon icon="dumbbell" />}
-          right={() => <List.Icon icon="chevron-right" />}
-        />
-      ))}
-    </List.Section>
+      <FlatList
+        data={exercises}
+        keyExtractor={({ id }) => id}
+        renderItem={({ item: { name, id, suggestion } }) => {
+          return (
+            <List.Item
+              title={name}
+              key={id}
+              description={getSuggestionText(suggestion)}
+              left={() => <List.Icon icon="dumbbell" />}
+            />
+          )
+        }}
+      />
+    </>
   )
 }
