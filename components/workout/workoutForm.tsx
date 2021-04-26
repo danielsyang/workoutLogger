@@ -26,7 +26,7 @@ export const WorkoutModal = ({ isVisible, onDismiss }: WorkoutModalProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<workoutForm>({ resolver: yupResolver(schema) })
-  const [data, mutate] = useCreateWorkoutMutation()
+  const [_, mutate] = useCreateWorkoutMutation()
 
   const onSubmit: SubmitHandler<workoutForm> = async (data) => {
     await mutate({ data })
