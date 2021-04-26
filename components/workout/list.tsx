@@ -1,9 +1,11 @@
 import React from "react"
 import { List } from "react-native-paper"
 import { useGetAllWorkoutsQuery } from "../../generated/graphql"
+import { useNavigation } from "@react-navigation/native"
 
 export const WorkoutList = () => {
   const [result] = useGetAllWorkoutsQuery()
+  const { navigate } = useNavigation()
   return (
     <List.Section>
       <List.Subheader>Workouts</List.Subheader>
@@ -13,7 +15,9 @@ export const WorkoutList = () => {
           key={id}
           left={() => <List.Icon icon="dumbbell" />}
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => console.log(1)}
+          onPress={() => {
+            navigate("WorkoutDetail", { workoutId: id })
+          }}
         />
       ))}
     </List.Section>

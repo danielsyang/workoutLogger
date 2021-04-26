@@ -33,8 +33,6 @@ export const WorkoutModal = ({ isVisible, onDismiss }: WorkoutModalProps) => {
     onDismiss()
   }
 
-  console.log("aa")
-
   return (
     <Portal>
       <Modal

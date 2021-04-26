@@ -12,7 +12,12 @@ export const WorkoutScreen = () => {
     <>
       <WorkoutHeader />
       <WorkoutList />
-      <WorkoutModal isVisible={isModalOpen} onDismiss={() => setModal(false)} />
+      {isModalOpen && (
+        <WorkoutModal
+          isVisible={isModalOpen}
+          onDismiss={() => setModal(false)}
+        />
+      )}
       <FAB
         style={fab}
         icon="plus"

@@ -1,0 +1,11 @@
+query getWorkoutById($data: WorkoutWhereUniqueInput!) {
+  workout(where: $data) {
+    id
+    name
+    createdAt
+    Exercise {
+      id
+      name
+    }
+  }
+}

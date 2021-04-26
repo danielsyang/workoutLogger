@@ -1289,6 +1289,23 @@ export type GetAllWorkoutsQuery = (
   )> }
 );
 
+export type GetWorkoutByIdQueryVariables = Exact<{
+  data: WorkoutWhereUniqueInput;
+}>;
+
+
+export type GetWorkoutByIdQuery = (
+  { __typename?: 'Query' }
+  & { workout?: Maybe<(
+    { __typename?: 'Workout' }
+    & Pick<Workout, 'id' | 'name' | 'createdAt'>
+    & { Exercise: Array<(
+      { __typename?: 'Exercise' }
+      & Pick<Exercise, 'id' | 'name'>
+    )> }
+  )> }
+);
+
 import { IntrospectionQuery } from 'graphql';
 export default {
   "__schema": {
@@ -4061,4 +4078,21 @@ export const GetAllWorkoutsDocument = gql`
 
 export function useGetAllWorkoutsQuery(options: Omit<Urql.UseQueryArgs<GetAllWorkoutsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetAllWorkoutsQuery>({ query: GetAllWorkoutsDocument, ...options });
+};
+export const GetWorkoutByIdDocument = gql`
+    query getWorkoutById($data: WorkoutWhereUniqueInput!) {
+  workout(where: $data) {
+    id
+    name
+    createdAt
+    Exercise {
+      id
+      name
+    }
+  }
+}
+    `;
+
+export function useGetWorkoutByIdQuery(options: Omit<Urql.UseQueryArgs<GetWorkoutByIdQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetWorkoutByIdQuery>({ query: GetWorkoutByIdDocument, ...options });
 };
