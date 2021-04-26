@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 import { FAB } from "react-native-paper"
 import { WorkoutHeader } from "../workoutHeader"
 import { WorkoutList } from "./list"
-import { WorkoutModal } from "./workoutForm"
+import { WorkoutModal } from "./form"
 
 export const WorkoutScreen = () => {
   const { fab } = styles
