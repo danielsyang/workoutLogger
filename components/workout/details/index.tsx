@@ -18,7 +18,7 @@ export const WorkoutDetail = ({
   const [isMenuOpen, setMenu] = useState(false)
   const [selectedExerciseId, setExerciseId] = useState("")
   const { fab } = styles
-  const [result] = useGetWorkoutByIdQuery({
+  const [result, refetch] = useGetWorkoutByIdQuery({
     variables: { data: { id: workoutId } },
     requestPolicy: "network-only",
   })
@@ -41,13 +41,24 @@ export const WorkoutDetail = ({
         <ExerciseModal
           workoutId={workoutId}
           isVisible={isModalOpen}
-          onDismiss={() => setModal(false)}
+          onDismiss={() => {
+            setModal(false)
+            setExerciseId("")
+          }}
+          exerciseId={selectedExerciseId}
+          refetch={refetch}
         />
       )}
       <ActionMenu
         isVisible={isMenuOpen}
-        onDismiss={() => setMenu(false)}
+        onDismiss={() => {
+          setMenu(false)
+        }}
         exerciseId={selectedExerciseId}
+        openUpdateModal={(exerciseId: string) => () => {
+          setExerciseId(exerciseId)
+          setModal(true)
+        }}
       />
       <FAB
         style={fab}

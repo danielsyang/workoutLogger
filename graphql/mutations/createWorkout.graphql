@@ -1,5 +1,7 @@
 mutation createWorkout($data: WorkoutCreateInput!){
   createWorkout(data: $data) {
+    id
     name
+    __typename
   }
 }

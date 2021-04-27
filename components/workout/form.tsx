@@ -12,7 +12,10 @@ import {
 } from "react-native-paper"
 import { schema, workoutForm } from "./validation"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useCreateWorkoutMutation } from "../../generated/graphql"
+import {
+  useCreateWorkoutMutation,
+  useGetAllWorkoutsQuery,
+} from "../../generated/graphql"
 
 interface WorkoutModalProps {
   isVisible: boolean
@@ -27,9 +30,13 @@ export const WorkoutModal = ({ isVisible, onDismiss }: WorkoutModalProps) => {
     formState: { errors },
   } = useForm<workoutForm>({ resolver: yupResolver(schema) })
   const [_, mutate] = useCreateWorkoutMutation()
+  const [__, refetch] = useGetAllWorkoutsQuery({
+    requestPolicy: "network-only",
+  })
 
   const onSubmit: SubmitHandler<workoutForm> = async (data) => {
     await mutate({ data })
+    await refetch()
     onDismiss()
   }
 

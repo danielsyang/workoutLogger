@@ -4,9 +4,10 @@ import { createClient } from "@urql/core"
 import React from "react"
 import { Provider as PaperProvider } from "react-native-paper"
 import { Navigation } from "./navigation"
-import { SafeAreaView } from "react-native-safe-area-context"
 
-const client = createClient({ url: "http://localhost:3000/graphql" })
+const client = createClient({
+  url: "http://localhost:3000/graphql",
+})
 
 const App = () => {
   return (

@@ -6,7 +6,8 @@ query getWorkoutById($data: WorkoutWhereUniqueInput!) {
     Exercise {
       id
       name
-      suggestion
+      reps
+      sets
     }
   }
 }

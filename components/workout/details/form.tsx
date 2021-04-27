@@ -12,18 +12,25 @@ import {
 } from "react-native-paper"
 import { schema, exerciseCreationForm } from "./validation"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useCreateExerciseMutation } from "../../../generated/graphql"
+import {
+  useCreateExerciseMutation,
+  useGetExerciseByIdQuery,
+} from "../../../generated/graphql"
 
 interface ExerciseModalProps {
   isVisible: boolean
   onDismiss: () => void
   workoutId: string
+  exerciseId: string
+  refetch: () => void
 }
 
 export const ExerciseModal = ({
   isVisible,
   onDismiss,
   workoutId,
+  exerciseId,
+  refetch,
 }: ExerciseModalProps) => {
   const {
     containerStyle,
@@ -39,16 +46,22 @@ export const ExerciseModal = ({
     formState: { errors },
   } = useForm<exerciseCreationForm>({ resolver: yupResolver(schema) })
   const [_, mutate] = useCreateExerciseMutation()
+  const [result] = useGetExerciseByIdQuery({
+    pause: exerciseId === "",
+    variables: { where: { id: exerciseId } },
+  })
 
   const onSubmit: SubmitHandler<exerciseCreationForm> = async (data) => {
     const { name, reps, sets } = data
     await mutate({
       data: {
         name,
-        suggestion: `${sets}x${reps}`,
+        reps,
+        sets,
         workout: { connect: { id: workoutId } },
       },
     })
+    await refetch()
     onDismiss()
   }
 
@@ -63,6 +76,7 @@ export const ExerciseModal = ({
         <Controller
           name="name"
           control={control}
+          defaultValue={result.data?.exercise?.name || ""}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               label="Name*"

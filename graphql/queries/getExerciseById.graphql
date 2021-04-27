@@ -1,0 +1,5 @@
+query getExerciseById($where: ExerciseWhereUniqueInput!) {
+  exercise(where: $where) {
+    name
+  }
+}

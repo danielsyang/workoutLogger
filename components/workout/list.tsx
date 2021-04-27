@@ -4,7 +4,9 @@ import { useGetAllWorkoutsQuery } from "../../generated/graphql"
 import { useNavigation } from "@react-navigation/native"
 
 export const WorkoutList = () => {
-  const [result] = useGetAllWorkoutsQuery()
+  const [result] = useGetAllWorkoutsQuery({
+    requestPolicy: "cache-and-network",
+  })
   const { navigate } = useNavigation()
   return (
     <List.Section>
