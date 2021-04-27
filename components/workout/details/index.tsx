@@ -1,7 +1,8 @@
+import { useNavigation } from "@react-navigation/core"
 import { StackScreenProps } from "@react-navigation/stack"
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
-import { FAB } from "react-native-paper"
+import { Button, FAB } from "react-native-paper"
 import { useGetWorkoutByIdQuery } from "../../../generated/graphql"
 import { RootStackParamList } from "../../../navigation/types"
 import { ActionMenu } from "./actionMenu"
@@ -17,11 +18,12 @@ export const WorkoutDetail = ({
   const [isModalOpen, setModal] = useState(false)
   const [isMenuOpen, setMenu] = useState(false)
   const [selectedExerciseId, setExerciseId] = useState("")
-  const { fab } = styles
   const [result, refetch] = useGetWorkoutByIdQuery({
     variables: { data: { id: workoutId } },
     requestPolicy: "network-only",
   })
+  const { navigate } = useNavigation()
+  const { fab, startWorkoutButton } = styles
 
   return (
     <>
@@ -37,6 +39,15 @@ export const WorkoutDetail = ({
           setExerciseId(exerciseId)
         }}
       />
+      <Button
+        style={startWorkoutButton}
+        mode="contained"
+        onPress={() => {
+          navigate("ExercisesCard", { workoutId })
+        }}
+      >
+        Start workout
+      </Button>
       {isModalOpen && (
         <ExerciseModal
           workoutId={workoutId}
@@ -77,5 +88,9 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+  },
+  startWorkoutButton: {
+    marginLeft: 20,
+    marginRight: 20,
   },
 })

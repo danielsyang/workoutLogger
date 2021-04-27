@@ -30,13 +30,13 @@ export type AggregateExercise = {
   max?: Maybe<ExerciseMaxAggregate>;
 };
 
-export type AggregateSet = {
-  __typename?: 'AggregateSet';
-  count?: Maybe<SetCountAggregate>;
-  avg?: Maybe<SetAvgAggregate>;
-  sum?: Maybe<SetSumAggregate>;
-  min?: Maybe<SetMinAggregate>;
-  max?: Maybe<SetMaxAggregate>;
+export type AggregateExerciseRecord = {
+  __typename?: 'AggregateExerciseRecord';
+  count?: Maybe<ExerciseRecordCountAggregate>;
+  avg?: Maybe<ExerciseRecordAvgAggregate>;
+  sum?: Maybe<ExerciseRecordSumAggregate>;
+  min?: Maybe<ExerciseRecordMinAggregate>;
+  max?: Maybe<ExerciseRecordMaxAggregate>;
 };
 
 export type AggregateWorkout = {
@@ -107,17 +107,17 @@ export type Exercise = {
   updatedAt: Scalars['DateTime'];
   workoutId: Scalars['String'];
   workout: Workout;
-  Set: Array<Set>;
+  Set: Array<ExerciseRecord>;
 };
 
 
 export type ExerciseSetArgs = {
-  where?: Maybe<SetWhereInput>;
-  orderBy?: Maybe<Array<SetOrderByInput>>;
-  cursor?: Maybe<SetWhereUniqueInput>;
+  where?: Maybe<ExerciseRecordWhereInput>;
+  orderBy?: Maybe<Array<ExerciseRecordOrderByInput>>;
+  cursor?: Maybe<ExerciseRecordWhereUniqueInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<SetScalarFieldEnum>>;
+  distinct?: Maybe<Array<ExerciseRecordScalarFieldEnum>>;
 };
 
 export type ExerciseAvgAggregate = {
@@ -146,7 +146,7 @@ export type ExerciseCreateInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   workout: WorkoutCreateNestedOneWithoutExerciseInput;
-  Set?: Maybe<SetCreateNestedManyWithoutExerciseInput>;
+  Set?: Maybe<ExerciseRecordCreateNestedManyWithoutExerciseInput>;
 };
 
 export type ExerciseCreateManyInput = {
@@ -213,7 +213,7 @@ export type ExerciseCreateWithoutWorkoutInput = {
   reps: Scalars['Int'];
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  Set?: Maybe<SetCreateNestedManyWithoutExerciseInput>;
+  Set?: Maybe<ExerciseRecordCreateNestedManyWithoutExerciseInput>;
 };
 
 export type ExerciseGroupBy = {
@@ -268,6 +268,255 @@ export type ExerciseOrderByInput = {
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
   workoutId?: Maybe<SortOrder>;
+};
+
+export type ExerciseRecord = {
+  __typename?: 'ExerciseRecord';
+  id: Scalars['String'];
+  reps: Array<Scalars['Int']>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  exerciseId: Scalars['String'];
+  perception: Perception;
+  exercise: Exercise;
+};
+
+export type ExerciseRecordAvgAggregate = {
+  __typename?: 'ExerciseRecordAvgAggregate';
+  reps?: Maybe<Scalars['Float']>;
+};
+
+export type ExerciseRecordCountAggregate = {
+  __typename?: 'ExerciseRecordCountAggregate';
+  id: Scalars['Int'];
+  reps: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  exerciseId: Scalars['Int'];
+  perception: Scalars['Int'];
+  _all: Scalars['Int'];
+};
+
+export type ExerciseRecordCreateInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  perception: Perception;
+  reps?: Maybe<ExerciseRecordCreaterepsInput>;
+  exercise: ExerciseCreateNestedOneWithoutSetInput;
+};
+
+export type ExerciseRecordCreateManyExerciseInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  perception: Perception;
+  reps?: Maybe<ExerciseRecordCreateManyrepsInput>;
+};
+
+export type ExerciseRecordCreateManyExerciseInputEnvelope = {
+  data: Array<ExerciseRecordCreateManyExerciseInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type ExerciseRecordCreateManyInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  exerciseId: Scalars['String'];
+  perception: Perception;
+  reps?: Maybe<ExerciseRecordCreateManyrepsInput>;
+};
+
+export type ExerciseRecordCreateManyrepsInput = {
+  set: Array<Scalars['Int']>;
+};
+
+export type ExerciseRecordCreateNestedManyWithoutExerciseInput = {
+  create?: Maybe<Array<ExerciseRecordCreateWithoutExerciseInput>>;
+  connectOrCreate?: Maybe<Array<ExerciseRecordCreateOrConnectWithoutExerciseInput>>;
+  createMany?: Maybe<ExerciseRecordCreateManyExerciseInputEnvelope>;
+  connect?: Maybe<Array<ExerciseRecordWhereUniqueInput>>;
+};
+
+export type ExerciseRecordCreateOrConnectWithoutExerciseInput = {
+  where: ExerciseRecordWhereUniqueInput;
+  create: ExerciseRecordCreateWithoutExerciseInput;
+};
+
+export type ExerciseRecordCreateWithoutExerciseInput = {
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  perception: Perception;
+  reps?: Maybe<ExerciseRecordCreaterepsInput>;
+};
+
+export type ExerciseRecordCreaterepsInput = {
+  set: Array<Scalars['Int']>;
+};
+
+export type ExerciseRecordGroupBy = {
+  __typename?: 'ExerciseRecordGroupBy';
+  id: Scalars['String'];
+  reps?: Maybe<Array<Scalars['Int']>>;
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  exerciseId: Scalars['String'];
+  perception: Perception;
+  count?: Maybe<ExerciseRecordCountAggregate>;
+  avg?: Maybe<ExerciseRecordAvgAggregate>;
+  sum?: Maybe<ExerciseRecordSumAggregate>;
+  min?: Maybe<ExerciseRecordMinAggregate>;
+  max?: Maybe<ExerciseRecordMaxAggregate>;
+};
+
+export type ExerciseRecordListRelationFilter = {
+  every?: Maybe<ExerciseRecordWhereInput>;
+  some?: Maybe<ExerciseRecordWhereInput>;
+  none?: Maybe<ExerciseRecordWhereInput>;
+};
+
+export type ExerciseRecordMaxAggregate = {
+  __typename?: 'ExerciseRecordMaxAggregate';
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  exerciseId?: Maybe<Scalars['String']>;
+  perception?: Maybe<Perception>;
+};
+
+export type ExerciseRecordMinAggregate = {
+  __typename?: 'ExerciseRecordMinAggregate';
+  id?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  exerciseId?: Maybe<Scalars['String']>;
+  perception?: Maybe<Perception>;
+};
+
+export type ExerciseRecordOrderByInput = {
+  id?: Maybe<SortOrder>;
+  reps?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+  exerciseId?: Maybe<SortOrder>;
+  perception?: Maybe<SortOrder>;
+};
+
+export enum ExerciseRecordScalarFieldEnum {
+  Id = 'id',
+  Reps = 'reps',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt',
+  ExerciseId = 'exerciseId',
+  Perception = 'perception'
+}
+
+export type ExerciseRecordScalarWhereInput = {
+  AND?: Maybe<Array<ExerciseRecordScalarWhereInput>>;
+  OR?: Maybe<Array<ExerciseRecordScalarWhereInput>>;
+  NOT?: Maybe<Array<ExerciseRecordScalarWhereInput>>;
+  id?: Maybe<StringFilter>;
+  reps?: Maybe<IntNullableListFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  exerciseId?: Maybe<StringFilter>;
+  perception?: Maybe<EnumPerceptionFilter>;
+};
+
+export type ExerciseRecordScalarWhereWithAggregatesInput = {
+  AND?: Maybe<Array<ExerciseRecordScalarWhereWithAggregatesInput>>;
+  OR?: Maybe<Array<ExerciseRecordScalarWhereWithAggregatesInput>>;
+  NOT?: Maybe<Array<ExerciseRecordScalarWhereWithAggregatesInput>>;
+  id?: Maybe<StringWithAggregatesFilter>;
+  reps?: Maybe<IntNullableListFilter>;
+  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
+  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
+  exerciseId?: Maybe<StringWithAggregatesFilter>;
+  perception?: Maybe<EnumPerceptionWithAggregatesFilter>;
+};
+
+export type ExerciseRecordSumAggregate = {
+  __typename?: 'ExerciseRecordSumAggregate';
+  reps?: Maybe<Array<Scalars['Int']>>;
+};
+
+export type ExerciseRecordUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
+  reps?: Maybe<ExerciseRecordUpdaterepsInput>;
+  exercise?: Maybe<ExerciseUpdateOneRequiredWithoutSetInput>;
+};
+
+export type ExerciseRecordUpdateManyMutationInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
+  reps?: Maybe<ExerciseRecordUpdaterepsInput>;
+};
+
+export type ExerciseRecordUpdateManyWithWhereWithoutExerciseInput = {
+  where: ExerciseRecordScalarWhereInput;
+  data: ExerciseRecordUpdateManyMutationInput;
+};
+
+export type ExerciseRecordUpdateManyWithoutExerciseInput = {
+  create?: Maybe<Array<ExerciseRecordCreateWithoutExerciseInput>>;
+  connectOrCreate?: Maybe<Array<ExerciseRecordCreateOrConnectWithoutExerciseInput>>;
+  upsert?: Maybe<Array<ExerciseRecordUpsertWithWhereUniqueWithoutExerciseInput>>;
+  createMany?: Maybe<ExerciseRecordCreateManyExerciseInputEnvelope>;
+  connect?: Maybe<Array<ExerciseRecordWhereUniqueInput>>;
+  set?: Maybe<Array<ExerciseRecordWhereUniqueInput>>;
+  disconnect?: Maybe<Array<ExerciseRecordWhereUniqueInput>>;
+  delete?: Maybe<Array<ExerciseRecordWhereUniqueInput>>;
+  update?: Maybe<Array<ExerciseRecordUpdateWithWhereUniqueWithoutExerciseInput>>;
+  updateMany?: Maybe<Array<ExerciseRecordUpdateManyWithWhereWithoutExerciseInput>>;
+  deleteMany?: Maybe<Array<ExerciseRecordScalarWhereInput>>;
+};
+
+export type ExerciseRecordUpdateWithWhereUniqueWithoutExerciseInput = {
+  where: ExerciseRecordWhereUniqueInput;
+  data: ExerciseRecordUpdateWithoutExerciseInput;
+};
+
+export type ExerciseRecordUpdateWithoutExerciseInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
+  reps?: Maybe<ExerciseRecordUpdaterepsInput>;
+};
+
+export type ExerciseRecordUpdaterepsInput = {
+  set?: Maybe<Array<Scalars['Int']>>;
+  push?: Maybe<Scalars['Int']>;
+};
+
+export type ExerciseRecordUpsertWithWhereUniqueWithoutExerciseInput = {
+  where: ExerciseRecordWhereUniqueInput;
+  update: ExerciseRecordUpdateWithoutExerciseInput;
+  create: ExerciseRecordCreateWithoutExerciseInput;
+};
+
+export type ExerciseRecordWhereInput = {
+  AND?: Maybe<Array<ExerciseRecordWhereInput>>;
+  OR?: Maybe<Array<ExerciseRecordWhereInput>>;
+  NOT?: Maybe<Array<ExerciseRecordWhereInput>>;
+  id?: Maybe<StringFilter>;
+  reps?: Maybe<IntNullableListFilter>;
+  createdAt?: Maybe<DateTimeFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
+  exercise?: Maybe<ExerciseRelationFilter>;
+  exerciseId?: Maybe<StringFilter>;
+  perception?: Maybe<EnumPerceptionFilter>;
+};
+
+export type ExerciseRecordWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
 };
 
 export type ExerciseRelationFilter = {
@@ -325,7 +574,7 @@ export type ExerciseUpdateInput = {
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   workout?: Maybe<WorkoutUpdateOneRequiredWithoutExerciseInput>;
-  Set?: Maybe<SetUpdateManyWithoutExerciseInput>;
+  Set?: Maybe<ExerciseRecordUpdateManyWithoutExerciseInput>;
 };
 
 export type ExerciseUpdateManyMutationInput = {
@@ -386,7 +635,7 @@ export type ExerciseUpdateWithoutWorkoutInput = {
   reps?: Maybe<IntFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  Set?: Maybe<SetUpdateManyWithoutExerciseInput>;
+  Set?: Maybe<ExerciseRecordUpdateManyWithoutExerciseInput>;
 };
 
 export type ExerciseUpsertWithWhereUniqueWithoutWorkoutInput = {
@@ -412,7 +661,7 @@ export type ExerciseWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   workoutId?: Maybe<StringFilter>;
-  Set?: Maybe<SetListRelationFilter>;
+  Set?: Maybe<ExerciseRecordListRelationFilter>;
 };
 
 export type ExerciseWhereUniqueInput = {
@@ -436,6 +685,14 @@ export type IntFilter = {
   gt?: Maybe<Scalars['Int']>;
   gte?: Maybe<Scalars['Int']>;
   not?: Maybe<NestedIntFilter>;
+};
+
+export type IntNullableListFilter = {
+  equals?: Maybe<Array<Scalars['Int']>>;
+  has?: Maybe<Scalars['Int']>;
+  hasEvery?: Maybe<Array<Scalars['Int']>>;
+  hasSome?: Maybe<Array<Scalars['Int']>>;
+  isEmpty?: Maybe<Scalars['Boolean']>;
 };
 
 export type IntWithAggregatesFilter = {
@@ -463,13 +720,13 @@ export type Mutation = {
   deleteManyExercise: AffectedRowsOutput;
   updateManyExercise: AffectedRowsOutput;
   upsertExercise: Exercise;
-  createSet: Set;
-  createManySet: AffectedRowsOutput;
-  deleteSet?: Maybe<Set>;
-  updateSet?: Maybe<Set>;
-  deleteManySet: AffectedRowsOutput;
-  updateManySet: AffectedRowsOutput;
-  upsertSet: Set;
+  createExerciseRecord: ExerciseRecord;
+  createManyExerciseRecord: AffectedRowsOutput;
+  deleteExerciseRecord?: Maybe<ExerciseRecord>;
+  updateExerciseRecord?: Maybe<ExerciseRecord>;
+  deleteManyExerciseRecord: AffectedRowsOutput;
+  updateManyExerciseRecord: AffectedRowsOutput;
+  upsertExerciseRecord: ExerciseRecord;
   createWorkout: Workout;
   createManyWorkout: AffectedRowsOutput;
   deleteWorkout?: Maybe<Workout>;
@@ -520,43 +777,43 @@ export type MutationUpsertExerciseArgs = {
 };
 
 
-export type MutationCreateSetArgs = {
-  data: SetCreateInput;
+export type MutationCreateExerciseRecordArgs = {
+  data: ExerciseRecordCreateInput;
 };
 
 
-export type MutationCreateManySetArgs = {
-  data: Array<SetCreateManyInput>;
+export type MutationCreateManyExerciseRecordArgs = {
+  data: Array<ExerciseRecordCreateManyInput>;
   skipDuplicates?: Maybe<Scalars['Boolean']>;
 };
 
 
-export type MutationDeleteSetArgs = {
-  where: SetWhereUniqueInput;
+export type MutationDeleteExerciseRecordArgs = {
+  where: ExerciseRecordWhereUniqueInput;
 };
 
 
-export type MutationUpdateSetArgs = {
-  data: SetUpdateInput;
-  where: SetWhereUniqueInput;
+export type MutationUpdateExerciseRecordArgs = {
+  data: ExerciseRecordUpdateInput;
+  where: ExerciseRecordWhereUniqueInput;
 };
 
 
-export type MutationDeleteManySetArgs = {
-  where?: Maybe<SetWhereInput>;
+export type MutationDeleteManyExerciseRecordArgs = {
+  where?: Maybe<ExerciseRecordWhereInput>;
 };
 
 
-export type MutationUpdateManySetArgs = {
-  data: SetUpdateManyMutationInput;
-  where?: Maybe<SetWhereInput>;
+export type MutationUpdateManyExerciseRecordArgs = {
+  data: ExerciseRecordUpdateManyMutationInput;
+  where?: Maybe<ExerciseRecordWhereInput>;
 };
 
 
-export type MutationUpsertSetArgs = {
-  where: SetWhereUniqueInput;
-  create: SetCreateInput;
-  update: SetUpdateInput;
+export type MutationUpsertExerciseRecordArgs = {
+  where: ExerciseRecordWhereUniqueInput;
+  create: ExerciseRecordCreateInput;
+  update: ExerciseRecordUpdateInput;
 };
 
 
@@ -723,11 +980,11 @@ export type Query = {
   exercises: Array<Exercise>;
   aggregateExercise: AggregateExercise;
   groupByExercise: Array<ExerciseGroupBy>;
-  set?: Maybe<Set>;
-  findFirstSet?: Maybe<Set>;
-  sets: Array<Set>;
-  aggregateSet: AggregateSet;
-  groupBySet: Array<SetGroupBy>;
+  exerciseRecord?: Maybe<ExerciseRecord>;
+  findFirstExerciseRecord?: Maybe<ExerciseRecord>;
+  exerciseRecords: Array<ExerciseRecord>;
+  aggregateExerciseRecord: AggregateExerciseRecord;
+  groupByExerciseRecord: Array<ExerciseRecordGroupBy>;
   workout?: Maybe<Workout>;
   findFirstWorkout?: Maybe<Workout>;
   workouts: Array<Workout>;
@@ -780,45 +1037,45 @@ export type QueryGroupByExerciseArgs = {
 };
 
 
-export type QuerySetArgs = {
-  where: SetWhereUniqueInput;
+export type QueryExerciseRecordArgs = {
+  where: ExerciseRecordWhereUniqueInput;
 };
 
 
-export type QueryFindFirstSetArgs = {
-  where?: Maybe<SetWhereInput>;
-  orderBy?: Maybe<Array<SetOrderByInput>>;
-  cursor?: Maybe<SetWhereUniqueInput>;
+export type QueryFindFirstExerciseRecordArgs = {
+  where?: Maybe<ExerciseRecordWhereInput>;
+  orderBy?: Maybe<Array<ExerciseRecordOrderByInput>>;
+  cursor?: Maybe<ExerciseRecordWhereUniqueInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<SetScalarFieldEnum>>;
+  distinct?: Maybe<Array<ExerciseRecordScalarFieldEnum>>;
 };
 
 
-export type QuerySetsArgs = {
-  where?: Maybe<SetWhereInput>;
-  orderBy?: Maybe<Array<SetOrderByInput>>;
-  cursor?: Maybe<SetWhereUniqueInput>;
+export type QueryExerciseRecordsArgs = {
+  where?: Maybe<ExerciseRecordWhereInput>;
+  orderBy?: Maybe<Array<ExerciseRecordOrderByInput>>;
+  cursor?: Maybe<ExerciseRecordWhereUniqueInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<SetScalarFieldEnum>>;
+  distinct?: Maybe<Array<ExerciseRecordScalarFieldEnum>>;
 };
 
 
-export type QueryAggregateSetArgs = {
-  where?: Maybe<SetWhereInput>;
-  orderBy?: Maybe<Array<SetOrderByInput>>;
-  cursor?: Maybe<SetWhereUniqueInput>;
+export type QueryAggregateExerciseRecordArgs = {
+  where?: Maybe<ExerciseRecordWhereInput>;
+  orderBy?: Maybe<Array<ExerciseRecordOrderByInput>>;
+  cursor?: Maybe<ExerciseRecordWhereUniqueInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
 };
 
 
-export type QueryGroupBySetArgs = {
-  where?: Maybe<SetWhereInput>;
-  orderBy?: Maybe<Array<SetOrderByInput>>;
-  by: Array<SetScalarFieldEnum>;
-  having?: Maybe<SetScalarWhereWithAggregatesInput>;
+export type QueryGroupByExerciseRecordArgs = {
+  where?: Maybe<ExerciseRecordWhereInput>;
+  orderBy?: Maybe<Array<ExerciseRecordOrderByInput>>;
+  by: Array<ExerciseRecordScalarFieldEnum>;
+  having?: Maybe<ExerciseRecordScalarWhereWithAggregatesInput>;
   take?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
 };
@@ -871,244 +1128,6 @@ export enum QueryMode {
   Default = 'default',
   Insensitive = 'insensitive'
 }
-
-export type Set = {
-  __typename?: 'Set';
-  id: Scalars['String'];
-  reps: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  exerciseId: Scalars['String'];
-  perception: Perception;
-  exercise: Exercise;
-};
-
-export type SetAvgAggregate = {
-  __typename?: 'SetAvgAggregate';
-  reps?: Maybe<Scalars['Float']>;
-};
-
-export type SetCountAggregate = {
-  __typename?: 'SetCountAggregate';
-  id: Scalars['Int'];
-  reps: Scalars['Int'];
-  createdAt: Scalars['Int'];
-  updatedAt: Scalars['Int'];
-  exerciseId: Scalars['Int'];
-  perception: Scalars['Int'];
-  _all: Scalars['Int'];
-};
-
-export type SetCreateInput = {
-  id?: Maybe<Scalars['String']>;
-  reps: Scalars['Int'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  perception: Perception;
-  exercise: ExerciseCreateNestedOneWithoutSetInput;
-};
-
-export type SetCreateManyExerciseInput = {
-  id?: Maybe<Scalars['String']>;
-  reps: Scalars['Int'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  perception: Perception;
-};
-
-export type SetCreateManyExerciseInputEnvelope = {
-  data: Array<SetCreateManyExerciseInput>;
-  skipDuplicates?: Maybe<Scalars['Boolean']>;
-};
-
-export type SetCreateManyInput = {
-  id?: Maybe<Scalars['String']>;
-  reps: Scalars['Int'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  exerciseId: Scalars['String'];
-  perception: Perception;
-};
-
-export type SetCreateNestedManyWithoutExerciseInput = {
-  create?: Maybe<Array<SetCreateWithoutExerciseInput>>;
-  connectOrCreate?: Maybe<Array<SetCreateOrConnectWithoutExerciseInput>>;
-  createMany?: Maybe<SetCreateManyExerciseInputEnvelope>;
-  connect?: Maybe<Array<SetWhereUniqueInput>>;
-};
-
-export type SetCreateOrConnectWithoutExerciseInput = {
-  where: SetWhereUniqueInput;
-  create: SetCreateWithoutExerciseInput;
-};
-
-export type SetCreateWithoutExerciseInput = {
-  id?: Maybe<Scalars['String']>;
-  reps: Scalars['Int'];
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  perception: Perception;
-};
-
-export type SetGroupBy = {
-  __typename?: 'SetGroupBy';
-  id: Scalars['String'];
-  reps: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  exerciseId: Scalars['String'];
-  perception: Perception;
-  count?: Maybe<SetCountAggregate>;
-  avg?: Maybe<SetAvgAggregate>;
-  sum?: Maybe<SetSumAggregate>;
-  min?: Maybe<SetMinAggregate>;
-  max?: Maybe<SetMaxAggregate>;
-};
-
-export type SetListRelationFilter = {
-  every?: Maybe<SetWhereInput>;
-  some?: Maybe<SetWhereInput>;
-  none?: Maybe<SetWhereInput>;
-};
-
-export type SetMaxAggregate = {
-  __typename?: 'SetMaxAggregate';
-  id?: Maybe<Scalars['String']>;
-  reps?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  exerciseId?: Maybe<Scalars['String']>;
-  perception?: Maybe<Perception>;
-};
-
-export type SetMinAggregate = {
-  __typename?: 'SetMinAggregate';
-  id?: Maybe<Scalars['String']>;
-  reps?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  exerciseId?: Maybe<Scalars['String']>;
-  perception?: Maybe<Perception>;
-};
-
-export type SetOrderByInput = {
-  id?: Maybe<SortOrder>;
-  reps?: Maybe<SortOrder>;
-  createdAt?: Maybe<SortOrder>;
-  updatedAt?: Maybe<SortOrder>;
-  exerciseId?: Maybe<SortOrder>;
-  perception?: Maybe<SortOrder>;
-};
-
-export enum SetScalarFieldEnum {
-  Id = 'id',
-  Reps = 'reps',
-  CreatedAt = 'createdAt',
-  UpdatedAt = 'updatedAt',
-  ExerciseId = 'exerciseId',
-  Perception = 'perception'
-}
-
-export type SetScalarWhereInput = {
-  AND?: Maybe<Array<SetScalarWhereInput>>;
-  OR?: Maybe<Array<SetScalarWhereInput>>;
-  NOT?: Maybe<Array<SetScalarWhereInput>>;
-  id?: Maybe<StringFilter>;
-  reps?: Maybe<IntFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
-  updatedAt?: Maybe<DateTimeFilter>;
-  exerciseId?: Maybe<StringFilter>;
-  perception?: Maybe<EnumPerceptionFilter>;
-};
-
-export type SetScalarWhereWithAggregatesInput = {
-  AND?: Maybe<Array<SetScalarWhereWithAggregatesInput>>;
-  OR?: Maybe<Array<SetScalarWhereWithAggregatesInput>>;
-  NOT?: Maybe<Array<SetScalarWhereWithAggregatesInput>>;
-  id?: Maybe<StringWithAggregatesFilter>;
-  reps?: Maybe<IntWithAggregatesFilter>;
-  createdAt?: Maybe<DateTimeWithAggregatesFilter>;
-  updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
-  exerciseId?: Maybe<StringWithAggregatesFilter>;
-  perception?: Maybe<EnumPerceptionWithAggregatesFilter>;
-};
-
-export type SetSumAggregate = {
-  __typename?: 'SetSumAggregate';
-  reps?: Maybe<Scalars['Int']>;
-};
-
-export type SetUpdateInput = {
-  id?: Maybe<StringFieldUpdateOperationsInput>;
-  reps?: Maybe<IntFieldUpdateOperationsInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
-  exercise?: Maybe<ExerciseUpdateOneRequiredWithoutSetInput>;
-};
-
-export type SetUpdateManyMutationInput = {
-  id?: Maybe<StringFieldUpdateOperationsInput>;
-  reps?: Maybe<IntFieldUpdateOperationsInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
-};
-
-export type SetUpdateManyWithWhereWithoutExerciseInput = {
-  where: SetScalarWhereInput;
-  data: SetUpdateManyMutationInput;
-};
-
-export type SetUpdateManyWithoutExerciseInput = {
-  create?: Maybe<Array<SetCreateWithoutExerciseInput>>;
-  connectOrCreate?: Maybe<Array<SetCreateOrConnectWithoutExerciseInput>>;
-  upsert?: Maybe<Array<SetUpsertWithWhereUniqueWithoutExerciseInput>>;
-  createMany?: Maybe<SetCreateManyExerciseInputEnvelope>;
-  connect?: Maybe<Array<SetWhereUniqueInput>>;
-  set?: Maybe<Array<SetWhereUniqueInput>>;
-  disconnect?: Maybe<Array<SetWhereUniqueInput>>;
-  delete?: Maybe<Array<SetWhereUniqueInput>>;
-  update?: Maybe<Array<SetUpdateWithWhereUniqueWithoutExerciseInput>>;
-  updateMany?: Maybe<Array<SetUpdateManyWithWhereWithoutExerciseInput>>;
-  deleteMany?: Maybe<Array<SetScalarWhereInput>>;
-};
-
-export type SetUpdateWithWhereUniqueWithoutExerciseInput = {
-  where: SetWhereUniqueInput;
-  data: SetUpdateWithoutExerciseInput;
-};
-
-export type SetUpdateWithoutExerciseInput = {
-  id?: Maybe<StringFieldUpdateOperationsInput>;
-  reps?: Maybe<IntFieldUpdateOperationsInput>;
-  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
-  perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
-};
-
-export type SetUpsertWithWhereUniqueWithoutExerciseInput = {
-  where: SetWhereUniqueInput;
-  update: SetUpdateWithoutExerciseInput;
-  create: SetCreateWithoutExerciseInput;
-};
-
-export type SetWhereInput = {
-  AND?: Maybe<Array<SetWhereInput>>;
-  OR?: Maybe<Array<SetWhereInput>>;
-  NOT?: Maybe<Array<SetWhereInput>>;
-  id?: Maybe<StringFilter>;
-  reps?: Maybe<IntFilter>;
-  createdAt?: Maybe<DateTimeFilter>;
-  updatedAt?: Maybe<DateTimeFilter>;
-  exercise?: Maybe<ExerciseRelationFilter>;
-  exerciseId?: Maybe<StringFilter>;
-  perception?: Maybe<EnumPerceptionFilter>;
-};
-
-export type SetWhereUniqueInput = {
-  id?: Maybe<Scalars['String']>;
-};
 
 export enum SortOrder {
   Asc = 'asc',
@@ -1332,6 +1351,19 @@ export type CreateExerciseMutation = (
   ) }
 );
 
+export type CreateExerciseRecordMutationVariables = Exact<{
+  data: ExerciseRecordCreateInput;
+}>;
+
+
+export type CreateExerciseRecordMutation = (
+  { __typename?: 'Mutation' }
+  & { createExerciseRecord: (
+    { __typename?: 'ExerciseRecord' }
+    & Pick<ExerciseRecord, 'id'>
+  ) }
+);
+
 export type CreateWorkoutMutationVariables = Exact<{
   data: WorkoutCreateInput;
 }>;
@@ -1490,13 +1522,13 @@ export default {
       },
       {
         "kind": "OBJECT",
-        "name": "AggregateSet",
+        "name": "AggregateExerciseRecord",
         "fields": [
           {
             "name": "count",
             "type": {
               "kind": "OBJECT",
-              "name": "SetCountAggregate"
+              "name": "ExerciseRecordCountAggregate"
             },
             "args": []
           },
@@ -1504,7 +1536,7 @@ export default {
             "name": "avg",
             "type": {
               "kind": "OBJECT",
-              "name": "SetAvgAggregate"
+              "name": "ExerciseRecordAvgAggregate"
             },
             "args": []
           },
@@ -1512,7 +1544,7 @@ export default {
             "name": "sum",
             "type": {
               "kind": "OBJECT",
-              "name": "SetSumAggregate"
+              "name": "ExerciseRecordSumAggregate"
             },
             "args": []
           },
@@ -1520,7 +1552,7 @@ export default {
             "name": "min",
             "type": {
               "kind": "OBJECT",
-              "name": "SetMinAggregate"
+              "name": "ExerciseRecordMinAggregate"
             },
             "args": []
           },
@@ -1528,7 +1560,7 @@ export default {
             "name": "max",
             "type": {
               "kind": "OBJECT",
-              "name": "SetMaxAggregate"
+              "name": "ExerciseRecordMaxAggregate"
             },
             "args": []
           }
@@ -1668,7 +1700,7 @@ export default {
                   "kind": "NON_NULL",
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Set"
+                    "name": "ExerciseRecord"
                   }
                 }
               }
@@ -2103,6 +2135,426 @@ export default {
       },
       {
         "kind": "OBJECT",
+        "name": "ExerciseRecord",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "reps",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "LIST",
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Any"
+                  }
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "exerciseId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "perception",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "exercise",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Exercise"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordAvgAggregate",
+        "fields": [
+          {
+            "name": "reps",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordCountAggregate",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "reps",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "exerciseId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "perception",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "_all",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordGroupBy",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "reps",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "exerciseId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "perception",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "count",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ExerciseRecordCountAggregate"
+            },
+            "args": []
+          },
+          {
+            "name": "avg",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ExerciseRecordAvgAggregate"
+            },
+            "args": []
+          },
+          {
+            "name": "sum",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ExerciseRecordSumAggregate"
+            },
+            "args": []
+          },
+          {
+            "name": "min",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ExerciseRecordMinAggregate"
+            },
+            "args": []
+          },
+          {
+            "name": "max",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ExerciseRecordMaxAggregate"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordMaxAggregate",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "exerciseId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "perception",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordMinAggregate",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "createdAt",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "updatedAt",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "exerciseId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "perception",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ExerciseRecordSumAggregate",
+        "fields": [
+          {
+            "name": "reps",
+            "type": {
+              "kind": "LIST",
+              "ofType": {
+                "kind": "NON_NULL",
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Any"
+                }
+              }
+            },
+            "args": []
+          }
+        ],
+        "interfaces": []
+      },
+      {
+        "kind": "OBJECT",
         "name": "ExerciseSumAggregate",
         "fields": [
           {
@@ -2324,12 +2776,12 @@ export default {
             ]
           },
           {
-            "name": "createSet",
+            "name": "createExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Set"
+                "name": "ExerciseRecord"
               }
             },
             "args": [
@@ -2346,7 +2798,7 @@ export default {
             ]
           },
           {
-            "name": "createManySet",
+            "name": "createManyExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2381,10 +2833,10 @@ export default {
             ]
           },
           {
-            "name": "deleteSet",
+            "name": "deleteExerciseRecord",
             "type": {
               "kind": "OBJECT",
-              "name": "Set"
+              "name": "ExerciseRecord"
             },
             "args": [
               {
@@ -2400,10 +2852,10 @@ export default {
             ]
           },
           {
-            "name": "updateSet",
+            "name": "updateExerciseRecord",
             "type": {
               "kind": "OBJECT",
-              "name": "Set"
+              "name": "ExerciseRecord"
             },
             "args": [
               {
@@ -2429,7 +2881,7 @@ export default {
             ]
           },
           {
-            "name": "deleteManySet",
+            "name": "deleteManyExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2448,7 +2900,7 @@ export default {
             ]
           },
           {
-            "name": "updateManySet",
+            "name": "updateManyExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2477,12 +2929,12 @@ export default {
             ]
           },
           {
-            "name": "upsertSet",
+            "name": "upsertExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Set"
+                "name": "ExerciseRecord"
               }
             },
             "args": [
@@ -3003,10 +3455,10 @@ export default {
             ]
           },
           {
-            "name": "set",
+            "name": "exerciseRecord",
             "type": {
               "kind": "OBJECT",
-              "name": "Set"
+              "name": "ExerciseRecord"
             },
             "args": [
               {
@@ -3022,10 +3474,10 @@ export default {
             ]
           },
           {
-            "name": "findFirstSet",
+            "name": "findFirstExerciseRecord",
             "type": {
               "kind": "OBJECT",
-              "name": "Set"
+              "name": "ExerciseRecord"
             },
             "args": [
               {
@@ -3085,7 +3537,7 @@ export default {
             ]
           },
           {
-            "name": "sets",
+            "name": "exerciseRecords",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -3094,7 +3546,7 @@ export default {
                   "kind": "NON_NULL",
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "Set"
+                    "name": "ExerciseRecord"
                   }
                 }
               }
@@ -3157,12 +3609,12 @@ export default {
             ]
           },
           {
-            "name": "aggregateSet",
+            "name": "aggregateExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
                 "kind": "OBJECT",
-                "name": "AggregateSet"
+                "name": "AggregateExerciseRecord"
               }
             },
             "args": [
@@ -3210,7 +3662,7 @@ export default {
             ]
           },
           {
-            "name": "groupBySet",
+            "name": "groupByExerciseRecord",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -3219,7 +3671,7 @@ export default {
                   "kind": "NON_NULL",
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "SetGroupBy"
+                    "name": "ExerciseRecordGroupBy"
                   }
                 }
               }
@@ -3565,427 +4017,6 @@ export default {
                 }
               }
             ]
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Set",
-        "fields": [
-          {
-            "name": "id",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "reps",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "createdAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "exerciseId",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "perception",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "exercise",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Exercise"
-              }
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetAvgAggregate",
-        "fields": [
-          {
-            "name": "reps",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetCountAggregate",
-        "fields": [
-          {
-            "name": "id",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "reps",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "createdAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "exerciseId",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "perception",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "_all",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetGroupBy",
-        "fields": [
-          {
-            "name": "id",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "reps",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "createdAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "exerciseId",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "perception",
-            "type": {
-              "kind": "NON_NULL",
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Any"
-              }
-            },
-            "args": []
-          },
-          {
-            "name": "count",
-            "type": {
-              "kind": "OBJECT",
-              "name": "SetCountAggregate"
-            },
-            "args": []
-          },
-          {
-            "name": "avg",
-            "type": {
-              "kind": "OBJECT",
-              "name": "SetAvgAggregate"
-            },
-            "args": []
-          },
-          {
-            "name": "sum",
-            "type": {
-              "kind": "OBJECT",
-              "name": "SetSumAggregate"
-            },
-            "args": []
-          },
-          {
-            "name": "min",
-            "type": {
-              "kind": "OBJECT",
-              "name": "SetMinAggregate"
-            },
-            "args": []
-          },
-          {
-            "name": "max",
-            "type": {
-              "kind": "OBJECT",
-              "name": "SetMaxAggregate"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetMaxAggregate",
-        "fields": [
-          {
-            "name": "id",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "reps",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "createdAt",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "exerciseId",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "perception",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetMinAggregate",
-        "fields": [
-          {
-            "name": "id",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "reps",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "createdAt",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "updatedAt",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "exerciseId",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          },
-          {
-            "name": "perception",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
-          }
-        ],
-        "interfaces": []
-      },
-      {
-        "kind": "OBJECT",
-        "name": "SetSumAggregate",
-        "fields": [
-          {
-            "name": "reps",
-            "type": {
-              "kind": "SCALAR",
-              "name": "Any"
-            },
-            "args": []
           }
         ],
         "interfaces": []
@@ -4348,6 +4379,17 @@ export const CreateExerciseDocument = gql`
 
 export function useCreateExerciseMutation() {
   return Urql.useMutation<CreateExerciseMutation, CreateExerciseMutationVariables>(CreateExerciseDocument);
+};
+export const CreateExerciseRecordDocument = gql`
+    mutation createExerciseRecord($data: ExerciseRecordCreateInput!) {
+  createExerciseRecord(data: $data) {
+    id
+  }
+}
+    `;
+
+export function useCreateExerciseRecordMutation() {
+  return Urql.useMutation<CreateExerciseRecordMutation, CreateExerciseRecordMutationVariables>(CreateExerciseRecordDocument);
 };
 export const CreateWorkoutDocument = gql`
     mutation createWorkout($data: WorkoutCreateInput!) {
