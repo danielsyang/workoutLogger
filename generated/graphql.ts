@@ -1440,6 +1440,10 @@ export type GetWorkoutByIdQuery = (
     & { Exercise: Array<(
       { __typename?: 'Exercise' }
       & Pick<Exercise, 'id' | 'name' | 'reps' | 'sets'>
+      & { Set: Array<(
+        { __typename?: 'ExerciseRecord' }
+        & Pick<ExerciseRecord, 'id' | 'reps' | 'perception'>
+      )> }
     )> }
   )> }
 );
@@ -4461,6 +4465,11 @@ export const GetWorkoutByIdDocument = gql`
       name
       reps
       sets
+      Set {
+        id
+        reps
+        perception
+      }
     }
   }
 }

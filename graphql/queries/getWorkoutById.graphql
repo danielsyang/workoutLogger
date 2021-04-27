@@ -8,6 +8,11 @@ query getWorkoutById($data: WorkoutWhereUniqueInput!) {
       name
       reps
       sets
+      Set {
+        id
+        reps
+        perception
+      }
     }
   }
 }
