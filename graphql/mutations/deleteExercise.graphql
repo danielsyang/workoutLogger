@@ -1,0 +1,5 @@
+mutation deleteExercise($where: ExerciseWhereUniqueInput!) {
+  deleteExercise(where: $where) {
+    id,
+  }
+}

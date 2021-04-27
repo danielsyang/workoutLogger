@@ -1,11 +1,12 @@
 import React from "react"
 import { FlatList } from "react-native"
-import { List } from "react-native-paper"
+import { List, IconButton } from "react-native-paper"
 import { Exercise } from "../../../generated/graphql"
 import { EmptyListPlaceholder } from "./emptyList"
 
 interface ExercisesListProps {
   exercises?: Pick<Exercise, "id" | "name" | "suggestion">[]
+  openMenu: (exerciseId: string) => () => void
 }
 
 const getSuggestionText = (suggestion: string) => {
@@ -14,7 +15,7 @@ const getSuggestionText = (suggestion: string) => {
   return `${sets} sets of ${reps}`
 }
 
-export const ExercisesList = ({ exercises }: ExercisesListProps) => {
+export const ExercisesList = ({ exercises, openMenu }: ExercisesListProps) => {
   return (
     <>
       {exercises?.length === 0 && <EmptyListPlaceholder />}
@@ -28,6 +29,9 @@ export const ExercisesList = ({ exercises }: ExercisesListProps) => {
               key={id}
               description={getSuggestionText(suggestion)}
               left={() => <List.Icon icon="dumbbell" />}
+              right={() => (
+                <IconButton icon="dots-horizontal" onPress={openMenu(id)} />
+              )}
             />
           )
         }}

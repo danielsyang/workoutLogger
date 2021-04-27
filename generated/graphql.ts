@@ -1310,6 +1310,19 @@ export type CreateWorkoutMutation = (
   ) }
 );
 
+export type DeleteExerciseMutationVariables = Exact<{
+  where: ExerciseWhereUniqueInput;
+}>;
+
+
+export type DeleteExerciseMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteExercise?: Maybe<(
+    { __typename?: 'Exercise' }
+    & Pick<Exercise, 'id'>
+  )> }
+);
+
 export type DeleteWorkoutMutationVariables = Exact<{
   data: WorkoutWhereUniqueInput;
 }>;
@@ -4171,6 +4184,17 @@ export const CreateWorkoutDocument = gql`
 
 export function useCreateWorkoutMutation() {
   return Urql.useMutation<CreateWorkoutMutation, CreateWorkoutMutationVariables>(CreateWorkoutDocument);
+};
+export const DeleteExerciseDocument = gql`
+    mutation deleteExercise($where: ExerciseWhereUniqueInput!) {
+  deleteExercise(where: $where) {
+    id
+  }
+}
+    `;
+
+export function useDeleteExerciseMutation() {
+  return Urql.useMutation<DeleteExerciseMutation, DeleteExerciseMutationVariables>(DeleteExerciseDocument);
 };
 export const DeleteWorkoutDocument = gql`
     mutation deleteWorkout($data: WorkoutWhereUniqueInput!) {
