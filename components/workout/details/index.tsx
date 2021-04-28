@@ -5,7 +5,6 @@ import { StyleSheet } from "react-native"
 import { Button, FAB } from "react-native-paper"
 import { useGetWorkoutByIdQuery } from "../../../generated/graphql"
 import { RootStackParamList } from "../../../navigation/types"
-import { ActionMenu } from "./actionMenu"
 import { ExerciseModal } from "./form"
 import { WorkoutDetailHeader } from "./header"
 import { ExercisesList } from "./list"
@@ -16,7 +15,6 @@ export const WorkoutDetail = ({
 }: StackScreenProps<RootStackParamList, "WorkoutDetail">) => {
   const { workoutId } = route.params
   const [isModalOpen, setModal] = useState(false)
-  const [isMenuOpen, setMenu] = useState(false)
   const [selectedExerciseId, setExerciseId] = useState("")
   const [result, refetch] = useGetWorkoutByIdQuery({
     variables: { data: { id: workoutId } },
@@ -34,8 +32,8 @@ export const WorkoutDetail = ({
       />
       <ExercisesList
         exercises={result.data?.workout?.Exercise}
-        openMenu={(exerciseId: string) => () => {
-          setMenu(true)
+        openUpdateModal={(exerciseId: string) => () => {
+          setModal(true)
           setExerciseId(exerciseId)
         }}
       />
@@ -60,17 +58,6 @@ export const WorkoutDetail = ({
           refetch={refetch}
         />
       )}
-      <ActionMenu
-        isVisible={isMenuOpen}
-        onDismiss={() => {
-          setMenu(false)
-        }}
-        exerciseId={selectedExerciseId}
-        openUpdateModal={(exerciseId: string) => () => {
-          setExerciseId(exerciseId)
-          setModal(true)
-        }}
-      />
       <FAB
         style={fab}
         icon="plus"
@@ -90,6 +77,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   startWorkoutButton: {
+    marginBottom: 30,
     marginLeft: 20,
     marginRight: 20,
   },

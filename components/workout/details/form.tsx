@@ -81,7 +81,7 @@ export const ExerciseModal = ({
           workout: { connect: { id: workoutId } },
         },
       })
-      await refetch()
+      refetch()
       onDismiss()
     }
   }
@@ -157,7 +157,7 @@ export const ExerciseModal = ({
           mode="contained"
           onPress={handleSubmit(onSubmit)}
         >
-          Create
+          {exerciseId !== "" ? "Update" : "Create"}
         </Button>
       </Modal>
     </Portal>
