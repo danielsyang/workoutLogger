@@ -1403,6 +1403,20 @@ export type DeleteWorkoutMutation = (
   )> }
 );
 
+export type UpdateExerciseMutationVariables = Exact<{
+  data: ExerciseUpdateInput;
+  where: ExerciseWhereUniqueInput;
+}>;
+
+
+export type UpdateExerciseMutation = (
+  { __typename?: 'Mutation' }
+  & { updateExercise?: Maybe<(
+    { __typename: 'Exercise' }
+    & Pick<Exercise, 'id'>
+  )> }
+);
+
 export type GetAllWorkoutsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1423,7 +1437,7 @@ export type GetExerciseByIdQuery = (
   { __typename?: 'Query' }
   & { exercise?: Maybe<(
     { __typename?: 'Exercise' }
-    & Pick<Exercise, 'name'>
+    & Pick<Exercise, 'id' | 'name' | 'reps' | 'sets'>
   )> }
 );
 
@@ -4430,6 +4444,18 @@ export const DeleteWorkoutDocument = gql`
 export function useDeleteWorkoutMutation() {
   return Urql.useMutation<DeleteWorkoutMutation, DeleteWorkoutMutationVariables>(DeleteWorkoutDocument);
 };
+export const UpdateExerciseDocument = gql`
+    mutation updateExercise($data: ExerciseUpdateInput!, $where: ExerciseWhereUniqueInput!) {
+  updateExercise(data: $data, where: $where) {
+    id
+    __typename
+  }
+}
+    `;
+
+export function useUpdateExerciseMutation() {
+  return Urql.useMutation<UpdateExerciseMutation, UpdateExerciseMutationVariables>(UpdateExerciseDocument);
+};
 export const GetAllWorkoutsDocument = gql`
     query getAllWorkouts {
   workouts {
@@ -4446,7 +4472,10 @@ export function useGetAllWorkoutsQuery(options: Omit<Urql.UseQueryArgs<GetAllWor
 export const GetExerciseByIdDocument = gql`
     query getExerciseById($where: ExerciseWhereUniqueInput!) {
   exercise(where: $where) {
+    id
     name
+    reps
+    sets
   }
 }
     `;

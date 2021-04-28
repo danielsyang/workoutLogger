@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { StyleSheet, View } from "react-native"
 import {
@@ -15,6 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {
   useCreateExerciseMutation,
   useGetExerciseByIdQuery,
+  useUpdateExerciseMutation,
 } from "../../../generated/graphql"
 
 interface ExerciseModalProps {
@@ -43,26 +44,46 @@ export const ExerciseModal = ({
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<exerciseCreationForm>({ resolver: yupResolver(schema) })
   const [_, mutate] = useCreateExerciseMutation()
+  const [__, updateMutation] = useUpdateExerciseMutation()
   const [result] = useGetExerciseByIdQuery({
     pause: exerciseId === "",
     variables: { where: { id: exerciseId } },
   })
 
+  useEffect(() => {
+    if (result.data?.exercise) {
+      const { reps, sets, name } = result.data.exercise
+      setValue("name", name)
+      setValue("sets", sets)
+      setValue("reps", reps)
+    }
+  }, [result.data?.exercise])
+
   const onSubmit: SubmitHandler<exerciseCreationForm> = async (data) => {
     const { name, reps, sets } = data
-    await mutate({
-      data: {
-        name,
-        reps,
-        sets,
-        workout: { connect: { id: workoutId } },
-      },
-    })
-    await refetch()
-    onDismiss()
+    if (exerciseId !== "") {
+      await updateMutation({
+        data: { name: { set: name }, reps: { set: reps }, sets: { set: sets } },
+        where: { id: exerciseId },
+      })
+      await refetch()
+      onDismiss()
+    } else {
+      await mutate({
+        data: {
+          name,
+          reps,
+          sets,
+          workout: { connect: { id: workoutId } },
+        },
+      })
+      await refetch()
+      onDismiss()
+    }
   }
 
   return (
@@ -76,7 +97,6 @@ export const ExerciseModal = ({
         <Controller
           name="name"
           control={control}
-          defaultValue={result.data?.exercise?.name || ""}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
               label="Name*"

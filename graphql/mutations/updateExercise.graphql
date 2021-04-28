@@ -1,0 +1,9 @@
+mutation updateExercise(
+  $data: ExerciseUpdateInput!
+  $where: ExerciseWhereUniqueInput!
+) {
+  updateExercise(data: $data, where: $where) {
+    id
+    __typename
+  }
+}
