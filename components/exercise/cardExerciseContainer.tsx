@@ -28,7 +28,7 @@ const generateSetsInput = (
   onChangeText: (text: string, index: number) => void,
   values: number[],
 ) => {
-  let inputs: any[] = []
+  let inputs: JSX.Element[] = []
   const handleChangeText = (index: number) => (val: string) => {
     onChangeText(val, index)
   }
@@ -40,6 +40,8 @@ const generateSetsInput = (
         keyboardType="decimal-pad"
         onChangeText={handleChangeText(i)}
         value={values[i]?.toString() || ""}
+        style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
+        dense={true}
       />,
     )
   }
@@ -50,7 +52,7 @@ export const CardExerciseContainer = ({
   exercise,
   trigger,
 }: CardExerciseContainerProps) => {
-  const { name, sets, id, Set } = exercise
+  const { name, sets, id, Set, reps: totalReps } = exercise
   const lastSet = Set.filter((_, index) => index === Set.length - 1)[0]
   const [perception, setPerception] = useState(Perception.Good)
   const [reps, setReps] = useState<number[]>([])
@@ -82,10 +84,10 @@ export const CardExerciseContainer = ({
 
   return (
     <Card style={container}>
-      <Card.Title title={name} />
+      <Card.Title title={name} subtitle={`${sets} sets of ${totalReps}`} />
       <Card.Content>
         <LastSessionResult lastSet={lastSet} />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           {generateSetsInput(sets, handleChangeInputText, reps)}
           <IconButton
             icon="arrow-up"
