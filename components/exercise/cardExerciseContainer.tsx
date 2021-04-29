@@ -2,7 +2,13 @@ import { Picker } from "@react-native-picker/picker"
 import { useNavigation } from "@react-navigation/core"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, View } from "react-native"
-import { Card, Colors, IconButton, TextInput } from "react-native-paper"
+import {
+  Card,
+  Colors,
+  IconButton,
+  Paragraph,
+  TextInput,
+} from "react-native-paper"
 import {
   Exercise,
   Perception,
@@ -93,6 +99,18 @@ export const CardExerciseContainer = ({
         <LastSessionResult lastSet={lastSet} />
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           {generateSetsInput(sets, handleChangeInputText, reps)}
+          <Paragraph style={{ marginLeft: 20 }}>RPE: </Paragraph>
+          <TextInput
+            mode="flat"
+            keyboardType="decimal-pad"
+            placeholder="RPE"
+            onChangeText={(val) => {
+              setRpe(+val)
+            }}
+            value={rpe?.toString() || ""}
+            style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
+            dense={true}
+          />
           <IconButton
             icon="arrow-up"
             color={
@@ -117,17 +135,6 @@ export const CardExerciseContainer = ({
             onPress={() => {
               setPerception(Perception.Bad)
             }}
-          />
-          <TextInput
-            mode="flat"
-            keyboardType="decimal-pad"
-            placeholder="RPE"
-            onChangeText={(val) => {
-              setRpe(+val)
-            }}
-            value={rpe?.toString() || ""}
-            style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
-            dense={true}
           />
         </View>
       </Card.Content>
