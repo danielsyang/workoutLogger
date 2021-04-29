@@ -1,3 +1,4 @@
+import { Picker } from "@react-native-picker/picker"
 import { useNavigation } from "@react-navigation/core"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, View } from "react-native"
@@ -15,7 +16,7 @@ interface CardExerciseContainerProps {
     Set: Array<
       { __typename?: "ExerciseRecord" } & Pick<
         ExerciseRecord,
-        "id" | "reps" | "perception"
+        "id" | "reps" | "perception" | "rpe"
       >
     >
   }
@@ -42,6 +43,7 @@ const generateSetsInput = (
         value={values[i]?.toString() || ""}
         style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
         dense={true}
+        key={i}
       />,
     )
   }
@@ -56,6 +58,7 @@ export const CardExerciseContainer = ({
   const lastSet = Set.filter((_, index) => index === Set.length - 1)[0]
   const [perception, setPerception] = useState(Perception.Good)
   const [reps, setReps] = useState<number[]>([])
+  const [rpe, setRpe] = useState<number>(0)
   const [_, mutate] = useCreateExerciseRecordMutation()
   const { goBack } = useNavigation()
   const { container } = styles
@@ -74,6 +77,7 @@ export const CardExerciseContainer = ({
             exercise: { connect: { id } },
             perception,
             reps: { set: reps },
+            rpe,
           },
         })
         goBack()
@@ -113,6 +117,17 @@ export const CardExerciseContainer = ({
             onPress={() => {
               setPerception(Perception.Bad)
             }}
+          />
+          <TextInput
+            mode="flat"
+            keyboardType="decimal-pad"
+            placeholder="RPE"
+            onChangeText={(val) => {
+              setRpe(+val)
+            }}
+            value={rpe?.toString() || ""}
+            style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
+            dense={true}
           />
         </View>
       </Card.Content>

@@ -4,7 +4,7 @@ import { IconButton, Paragraph, Colors } from "react-native-paper"
 import { ExerciseRecord, Perception } from "../../generated/graphql"
 
 interface LastSessionResultProps {
-  lastSet?: Pick<ExerciseRecord, "id" | "reps" | "perception">
+  lastSet?: Pick<ExerciseRecord, "id" | "reps" | "perception" | "rpe">
 }
 
 const getPerception = (perception: Perception) => {
@@ -23,7 +23,7 @@ export const LastSessionResult = ({ lastSet }: LastSessionResultProps) => {
     return <></>
   }
 
-  const { id, perception, reps } = lastSet
+  const { id, perception, reps, rpe } = lastSet
   return (
     <View
       style={{
@@ -36,6 +36,7 @@ export const LastSessionResult = ({ lastSet }: LastSessionResultProps) => {
         <Paragraph key={`${id}-${index}`}>{`${r}kg  `}</Paragraph>
       ))}
       {getPerception(perception)}
+      <Paragraph>RPE: {rpe}</Paragraph>
     </View>
   )
 }

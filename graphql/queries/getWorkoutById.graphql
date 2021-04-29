@@ -12,6 +12,7 @@ query getWorkoutById($data: WorkoutWhereUniqueInput!) {
         id
         reps
         perception
+        rpe
       }
     }
   }

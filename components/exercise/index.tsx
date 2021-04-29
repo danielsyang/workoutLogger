@@ -18,6 +18,7 @@ export const ExercisesCardScreen = ({
     variables: { data: { id: workoutId } },
   })
   const [shouldSaveWorkout, setWorkoutState] = useState(false)
+  console.log(result.data?.workout?.Exercise)
 
   return (
     <View>

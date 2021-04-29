@@ -277,6 +277,7 @@ export type ExerciseRecord = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   exerciseId: Scalars['String'];
+  rpe: Scalars['Int'];
   perception: Perception;
   exercise: Exercise;
 };
@@ -284,6 +285,7 @@ export type ExerciseRecord = {
 export type ExerciseRecordAvgAggregate = {
   __typename?: 'ExerciseRecordAvgAggregate';
   reps?: Maybe<Scalars['Float']>;
+  rpe?: Maybe<Scalars['Float']>;
 };
 
 export type ExerciseRecordCountAggregate = {
@@ -293,6 +295,7 @@ export type ExerciseRecordCountAggregate = {
   createdAt: Scalars['Int'];
   updatedAt: Scalars['Int'];
   exerciseId: Scalars['Int'];
+  rpe: Scalars['Int'];
   perception: Scalars['Int'];
   _all: Scalars['Int'];
 };
@@ -301,6 +304,7 @@ export type ExerciseRecordCreateInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  rpe: Scalars['Int'];
   perception: Perception;
   reps?: Maybe<ExerciseRecordCreaterepsInput>;
   exercise: ExerciseCreateNestedOneWithoutSetInput;
@@ -310,6 +314,7 @@ export type ExerciseRecordCreateManyExerciseInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  rpe: Scalars['Int'];
   perception: Perception;
   reps?: Maybe<ExerciseRecordCreateManyrepsInput>;
 };
@@ -324,6 +329,7 @@ export type ExerciseRecordCreateManyInput = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   exerciseId: Scalars['String'];
+  rpe: Scalars['Int'];
   perception: Perception;
   reps?: Maybe<ExerciseRecordCreateManyrepsInput>;
 };
@@ -348,6 +354,7 @@ export type ExerciseRecordCreateWithoutExerciseInput = {
   id?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
+  rpe: Scalars['Int'];
   perception: Perception;
   reps?: Maybe<ExerciseRecordCreaterepsInput>;
 };
@@ -363,6 +370,7 @@ export type ExerciseRecordGroupBy = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   exerciseId: Scalars['String'];
+  rpe: Scalars['Int'];
   perception: Perception;
   count?: Maybe<ExerciseRecordCountAggregate>;
   avg?: Maybe<ExerciseRecordAvgAggregate>;
@@ -383,6 +391,7 @@ export type ExerciseRecordMaxAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   exerciseId?: Maybe<Scalars['String']>;
+  rpe?: Maybe<Scalars['Int']>;
   perception?: Maybe<Perception>;
 };
 
@@ -392,6 +401,7 @@ export type ExerciseRecordMinAggregate = {
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   exerciseId?: Maybe<Scalars['String']>;
+  rpe?: Maybe<Scalars['Int']>;
   perception?: Maybe<Perception>;
 };
 
@@ -401,6 +411,7 @@ export type ExerciseRecordOrderByInput = {
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
   exerciseId?: Maybe<SortOrder>;
+  rpe?: Maybe<SortOrder>;
   perception?: Maybe<SortOrder>;
 };
 
@@ -410,6 +421,7 @@ export enum ExerciseRecordScalarFieldEnum {
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt',
   ExerciseId = 'exerciseId',
+  Rpe = 'rpe',
   Perception = 'perception'
 }
 
@@ -422,6 +434,7 @@ export type ExerciseRecordScalarWhereInput = {
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
   exerciseId?: Maybe<StringFilter>;
+  rpe?: Maybe<IntFilter>;
   perception?: Maybe<EnumPerceptionFilter>;
 };
 
@@ -434,18 +447,21 @@ export type ExerciseRecordScalarWhereWithAggregatesInput = {
   createdAt?: Maybe<DateTimeWithAggregatesFilter>;
   updatedAt?: Maybe<DateTimeWithAggregatesFilter>;
   exerciseId?: Maybe<StringWithAggregatesFilter>;
+  rpe?: Maybe<IntWithAggregatesFilter>;
   perception?: Maybe<EnumPerceptionWithAggregatesFilter>;
 };
 
 export type ExerciseRecordSumAggregate = {
   __typename?: 'ExerciseRecordSumAggregate';
   reps?: Maybe<Array<Scalars['Int']>>;
+  rpe?: Maybe<Scalars['Int']>;
 };
 
 export type ExerciseRecordUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  rpe?: Maybe<IntFieldUpdateOperationsInput>;
   perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
   reps?: Maybe<ExerciseRecordUpdaterepsInput>;
   exercise?: Maybe<ExerciseUpdateOneRequiredWithoutSetInput>;
@@ -455,6 +471,7 @@ export type ExerciseRecordUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  rpe?: Maybe<IntFieldUpdateOperationsInput>;
   perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
   reps?: Maybe<ExerciseRecordUpdaterepsInput>;
 };
@@ -487,6 +504,7 @@ export type ExerciseRecordUpdateWithoutExerciseInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  rpe?: Maybe<IntFieldUpdateOperationsInput>;
   perception?: Maybe<EnumPerceptionFieldUpdateOperationsInput>;
   reps?: Maybe<ExerciseRecordUpdaterepsInput>;
 };
@@ -512,6 +530,7 @@ export type ExerciseRecordWhereInput = {
   updatedAt?: Maybe<DateTimeFilter>;
   exercise?: Maybe<ExerciseRelationFilter>;
   exerciseId?: Maybe<StringFilter>;
+  rpe?: Maybe<IntFilter>;
   perception?: Maybe<EnumPerceptionFilter>;
 };
 
@@ -1456,7 +1475,7 @@ export type GetWorkoutByIdQuery = (
       & Pick<Exercise, 'id' | 'name' | 'reps' | 'sets'>
       & { Set: Array<(
         { __typename?: 'ExerciseRecord' }
-        & Pick<ExerciseRecord, 'id' | 'reps' | 'perception'>
+        & Pick<ExerciseRecord, 'id' | 'reps' | 'perception' | 'rpe'>
       )> }
     )> }
   )> }
@@ -2217,6 +2236,17 @@ export default {
             "args": []
           },
           {
+            "name": "rpe",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
             "name": "perception",
             "type": {
               "kind": "NON_NULL",
@@ -2247,6 +2277,14 @@ export default {
         "fields": [
           {
             "name": "reps",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
+            "name": "rpe",
             "type": {
               "kind": "SCALAR",
               "name": "Any"
@@ -2306,6 +2344,17 @@ export default {
           },
           {
             "name": "exerciseId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "rpe",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2393,6 +2442,17 @@ export default {
           },
           {
             "name": "exerciseId",
+            "type": {
+              "kind": "NON_NULL",
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Any"
+              }
+            },
+            "args": []
+          },
+          {
+            "name": "rpe",
             "type": {
               "kind": "NON_NULL",
               "ofType": {
@@ -2493,6 +2553,14 @@ export default {
             "args": []
           },
           {
+            "name": "rpe",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "perception",
             "type": {
               "kind": "SCALAR",
@@ -2540,6 +2608,14 @@ export default {
             "args": []
           },
           {
+            "name": "rpe",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
+            },
+            "args": []
+          },
+          {
             "name": "perception",
             "type": {
               "kind": "SCALAR",
@@ -2565,6 +2641,14 @@ export default {
                   "name": "Any"
                 }
               }
+            },
+            "args": []
+          },
+          {
+            "name": "rpe",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Any"
             },
             "args": []
           }
@@ -4498,6 +4582,7 @@ export const GetWorkoutByIdDocument = gql`
         id
         reps
         perception
+        rpe
       }
     }
   }
