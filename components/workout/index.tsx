@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
-import { FAB } from "react-native-paper"
+import { FAB, useTheme, Colors } from "react-native-paper"
 import { WorkoutHeader } from "../workoutHeader"
 import { WorkoutList } from "./list"
 import { WorkoutModal } from "./form"
@@ -8,6 +8,7 @@ import { WorkoutModal } from "./form"
 export const WorkoutScreen = () => {
   const { fab } = styles
   const [isModalOpen, setModal] = useState(false)
+  const { colors } = useTheme()
   return (
     <>
       <WorkoutHeader />
@@ -19,7 +20,8 @@ export const WorkoutScreen = () => {
         />
       )}
       <FAB
-        style={fab}
+        color={Colors.white}
+        style={{ ...fab, backgroundColor: colors.primary }}
         icon="plus"
         onPress={() => {
           setModal(true)

@@ -10,7 +10,6 @@ export const WorkoutList = () => {
   })
   const { navigate } = useNavigation()
 
-  console.log(!result.data?.workouts)
   return (
     <List.Section>
       <List.Subheader>Workouts</List.Subheader>

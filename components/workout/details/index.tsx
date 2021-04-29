@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core"
 import { StackScreenProps } from "@react-navigation/stack"
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
-import { Button, FAB } from "react-native-paper"
+import { Button, FAB, Colors, useTheme } from "react-native-paper"
 import { useGetWorkoutByIdQuery } from "../../../generated/graphql"
 import { RootStackParamList } from "../../../navigation/types"
 import { ExerciseModal } from "./form"
@@ -22,6 +22,7 @@ export const WorkoutDetail = ({
   })
   const { navigate } = useNavigation()
   const { fab, startWorkoutButton } = styles
+  const { colors } = useTheme()
 
   return (
     <>
@@ -59,7 +60,8 @@ export const WorkoutDetail = ({
         />
       )}
       <FAB
-        style={fab}
+        color={Colors.white}
+        style={{ ...fab, backgroundColor: colors.primary }}
         icon="plus"
         onPress={() => {
           setModal(true)
