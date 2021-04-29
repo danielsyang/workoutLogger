@@ -27,6 +27,7 @@ interface CardExerciseContainerProps {
     >
   }
   trigger: boolean
+  refetch: () => void
 }
 
 // TODO: refactor needed
@@ -59,6 +60,7 @@ const generateSetsInput = (
 export const CardExerciseContainer = ({
   exercise,
   trigger,
+  refetch,
 }: CardExerciseContainerProps) => {
   const { name, sets, id, Set, reps: totalReps } = exercise
   const lastSet = Set.filter((_, index) => index === Set.length - 1)[0]
@@ -86,6 +88,7 @@ export const CardExerciseContainer = ({
             rpe,
           },
         })
+        refetch()
         goBack()
       }
     }
@@ -97,45 +100,54 @@ export const CardExerciseContainer = ({
       <Card.Title title={name} subtitle={`${sets} sets of ${totalReps}`} />
       <Card.Content>
         <LastSessionResult lastSet={lastSet} />
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          {generateSetsInput(sets, handleChangeInputText, reps)}
-          <Paragraph style={{ marginLeft: 20 }}>RPE: </Paragraph>
-          <TextInput
-            mode="flat"
-            keyboardType="decimal-pad"
-            placeholder="RPE"
-            onChangeText={(val) => {
-              setRpe(+val)
-            }}
-            value={rpe?.toString() || ""}
-            style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
-            dense={true}
-          />
-          <IconButton
-            icon="arrow-up"
-            color={
-              perception === Perception.Good ? Colors.green400 : Colors.black
-            }
-            onPress={() => {
-              setPerception(Perception.Good)
-            }}
-          />
-          <IconButton
-            icon="minus"
-            color={
-              perception === Perception.Medium ? Colors.yellow400 : Colors.black
-            }
-            onPress={() => {
-              setPerception(Perception.Medium)
-            }}
-          />
-          <IconButton
-            icon="arrow-down"
-            color={perception === Perception.Bad ? Colors.red900 : Colors.black}
-            onPress={() => {
-              setPerception(Perception.Bad)
-            }}
-          />
+        <View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {generateSetsInput(sets, handleChangeInputText, reps)}
+            <Paragraph style={{ marginLeft: 20 }}>RPE: </Paragraph>
+            <TextInput
+              mode="flat"
+              keyboardType="decimal-pad"
+              placeholder="RPE"
+              onChangeText={(val) => {
+                setRpe(+val)
+              }}
+              value={rpe?.toString() || ""}
+              style={{ paddingVertical: 0, maxWidth: 50, width: 50 }}
+              dense={true}
+            />
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Paragraph>Perception:</Paragraph>
+            <IconButton
+              icon="arrow-up"
+              color={
+                perception === Perception.Good ? Colors.green400 : Colors.black
+              }
+              onPress={() => {
+                setPerception(Perception.Good)
+              }}
+            />
+            <IconButton
+              icon="minus"
+              color={
+                perception === Perception.Medium
+                  ? Colors.yellow400
+                  : Colors.black
+              }
+              onPress={() => {
+                setPerception(Perception.Medium)
+              }}
+            />
+            <IconButton
+              icon="arrow-down"
+              color={
+                perception === Perception.Bad ? Colors.red900 : Colors.black
+              }
+              onPress={() => {
+                setPerception(Perception.Bad)
+              }}
+            />
+          </View>
         </View>
       </Card.Content>
     </Card>

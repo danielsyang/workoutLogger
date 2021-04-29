@@ -14,11 +14,10 @@ export const ExercisesCardScreen = ({
   },
 }: StackScreenProps<RootStackParamList, "ExercisesCard">) => {
   const { goBack } = useNavigation()
-  const [result] = useGetWorkoutByIdQuery({
+  const [result, refetch] = useGetWorkoutByIdQuery({
     variables: { data: { id: workoutId } },
   })
   const [shouldSaveWorkout, setWorkoutState] = useState(false)
-  console.log(result.data?.workout?.Exercise)
 
   return (
     <View>
@@ -32,6 +31,7 @@ export const ExercisesCardScreen = ({
           exercise={e}
           key={e.id}
           trigger={shouldSaveWorkout}
+          refetch={refetch}
         />
       ))}
 

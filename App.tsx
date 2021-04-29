@@ -4,10 +4,13 @@ import { createClient } from "@urql/core"
 import React from "react"
 import { Provider as PaperProvider } from "react-native-paper"
 import { Navigation } from "./navigation"
+import { LogBox } from "react-native"
 
 const client = createClient({
   url: "http://localhost:3000/graphql",
 })
+
+LogBox.ignoreAllLogs()
 
 const App = () => {
   return (
